@@ -5,6 +5,17 @@ playRound(getHumanChoice(), getComputerChoice());
 
 function playRound(humanChoice, computerChoice) {
   const gameResult = getGameResult(humanChoice, computerChoice);
+  const roundResultMessage = getRoundResultMessage(
+    gameResult,
+    humanChoice,
+    computerChoice,
+  );
+  console.log(message);
+  changeScore(gameResult);
+  console.log(`Score: You - ${humanScore}, Computer - ${computerScore}.`);
+}
+
+function getRoundResultMessage(gameResult, humanChoice, computerChoice) {
   let message = "";
   switch (gameResult) {
     case "It's tie!":
@@ -17,9 +28,7 @@ function playRound(humanChoice, computerChoice) {
       message = `You lose! ${capitalizeString(computerChoice)} beats ${capitalizeString(humanChoice)}.`;
       break;
   }
-  console.log(message);
-  changeScore(gameResult);
-  console.log(`Score: You - ${humanScore}, Computer - ${computerScore}.`);
+  return message;
 }
 
 function capitalizeString(str) {
