@@ -1,6 +1,16 @@
 let humanScore = 0;
 let computerScore = 0;
 
+function changeScore(gameResult) {
+  switch(gameResult) {
+    case 'You win!':
+      humanScore++;
+      break;
+    case 'You lose!':
+      computerScore++;
+      break;
+  }
+}
 
 function getGameResult(humanChoice, computerChoice) {
   if (humanChoice === computerChoice) {
