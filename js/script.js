@@ -1,27 +1,65 @@
-let humanScore = 0;
-let computerScore = 0;
+const NUMBER_OF_ROUNDS = 5;
 
-playRound(getHumanChoice(), getComputerChoice());
+playGame();
 
-function playRound(humanChoice, computerChoice) {
-  const gameResult = getGameResult(humanChoice, computerChoice);
+function playGame() {
+  let humanScore = 0;
+  let computerScore = 0;
+  let roundCounter = 0;
+
+  while (roundCounter < NUMBER_OF_ROUNDS) {
+    const humanChoice = getHumanChoice();
+    const computerChoice = getComputerChoice();
+    [humanScore, computerScore] = playRound(
+      humanChoice,
+      computerChoice,
+      humanScore,
+      computerScore,
+    );
+    roundCounter++;
+  }
+
+  showGameResult(humanScore, computerScore);
+}
+
+function showGameResult(humanScore, computerScore) {
+  const winner = getWinner(humanScore, computerScore);
+  const gameResultMessage = `Game over! ${winner === "human" ? "You win!" : winner === "computer" ? "You lose!" : "Tie!"}`;
+  console.log(gameResultMessage);
+}
+
+function getWinner(humanScore, computerScore) {
+  return humanScore > computerScore
+    ? "human"
+    : humanScore < computerScore
+      ? "computer"
+      : "tie";
+}
+
+function playRound(humanChoice, computerChoice, humanScore, computerScore) {
+  const roundResult = getRoundResult(humanChoice, computerChoice);
   const roundResultMessage = getRoundResultMessage(
-    gameResult,
+    roundResult,
     humanChoice,
     computerChoice,
   );
   console.log(roundResultMessage);
-  changeScore(gameResult);
-  showScore();
+  [humanScore, computerScore] = changeScore(
+    roundResult,
+    humanScore,
+    computerScore,
+  );
+  showScore(humanScore, computerScore);
+  return [humanScore, computerScore];
 }
 
-function showScore() {
+function showScore(humanScore, computerScore) {
   console.log(`Score: You - ${humanScore}, Computer - ${computerScore}.`);
 }
 
-function getRoundResultMessage(gameResult, humanChoice, computerChoice) {
+function getRoundResultMessage(roundResult, humanChoice, computerChoice) {
   let message = "";
-  switch (gameResult) {
+  switch (roundResult) {
     case "It's tie!":
       message = `It's tie! You both chose ${capitalizeString(humanChoice)}`;
       break;
@@ -39,7 +77,7 @@ function capitalizeString(str) {
   return str.at(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-function changeScore(gameResult) {
+function changeScore(gameResult, humanScore, computerScore) {
   switch (gameResult) {
     case "You win!":
       humanScore++;
@@ -48,9 +86,11 @@ function changeScore(gameResult) {
       computerScore++;
       break;
   }
+
+  return [humanScore, computerScore];
 }
 
-function getGameResult(humanChoice, computerChoice) {
+function getRoundResult(humanChoice, computerChoice) {
   if (humanChoice === computerChoice) {
     return "It's tie!";
   }
