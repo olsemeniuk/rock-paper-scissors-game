@@ -12,6 +12,10 @@ function playRound(humanChoice, computerChoice) {
   );
   console.log(message);
   changeScore(gameResult);
+  showScore();
+}
+
+function showScore() {
   console.log(`Score: You - ${humanScore}, Computer - ${computerScore}.`);
 }
 
