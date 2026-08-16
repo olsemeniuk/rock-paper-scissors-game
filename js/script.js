@@ -10,7 +10,7 @@ function playRound(humanChoice, computerChoice) {
     humanChoice,
     computerChoice,
   );
-  console.log(message);
+  console.log(roundResultMessage);
   changeScore(gameResult);
   showScore();
 }
