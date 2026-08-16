@@ -60,13 +60,13 @@ function showScore(humanScore, computerScore) {
 function getRoundResultMessage(roundResult, humanChoice, computerChoice) {
   let message = "";
   switch (roundResult) {
-    case "It's tie!":
+    case "tie":
       message = `It's tie! You both chose ${capitalizeString(humanChoice)}`;
       break;
-    case "You win!":
+    case "win":
       message = `You win! ${capitalizeString(humanChoice)} beats ${capitalizeString(computerChoice)}.`;
       break;
-    case "You lose!":
+    case "lose":
       message = `You lose! ${capitalizeString(computerChoice)} beats ${capitalizeString(humanChoice)}.`;
       break;
   }
@@ -77,12 +77,12 @@ function capitalizeString(str) {
   return str.at(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-function changeScore(gameResult, humanScore, computerScore) {
-  switch (gameResult) {
-    case "You win!":
+function changeScore(roundResult, humanScore, computerScore) {
+  switch (roundResult) {
+    case "win":
       humanScore++;
       break;
-    case "You lose!":
+    case "lose":
       computerScore++;
       break;
   }
@@ -92,7 +92,7 @@ function changeScore(gameResult, humanScore, computerScore) {
 
 function getRoundResult(humanChoice, computerChoice) {
   if (humanChoice === computerChoice) {
-    return "It's tie!";
+    return "tie";
   }
 
   if (
@@ -100,10 +100,10 @@ function getRoundResult(humanChoice, computerChoice) {
     (humanChoice === "paper" && computerChoice === "rock") ||
     (humanChoice === "scissors" && computerChoice === "paper")
   ) {
-    return "You win!";
+    return "win";
   }
 
-  return "You lose!";
+  return "lose";
 }
 
 function getComputerChoice() {
