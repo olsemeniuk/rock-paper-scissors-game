@@ -4,3 +4,7 @@ function getComputerChoice() {
     randomNum === 1 ? "rock" : randomNum === 2 ? "paper" : "scissors";
   return computerChoice;
 }
+
+function getHumanChoice() {
+  return prompt('What is your choice?').toLowerCase();
+}
