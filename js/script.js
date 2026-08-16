@@ -114,5 +114,5 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-  return prompt("What is your choice?").toLowerCase();
+  return prompt("What is your choice?\nRock, paper or scissors?").toLowerCase();
 }
