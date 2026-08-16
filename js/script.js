@@ -1,12 +1,37 @@
 let humanScore = 0;
 let computerScore = 0;
 
+playRound(getHumanChoice(), getComputerChoice());
+
+function playRound(humanChoice, computerChoice) {
+  const gameResult = getGameResult(humanChoice, computerChoice);
+  let message = "";
+  switch (gameResult) {
+    case "It's tie!":
+      message = `It's tie! You both chose ${capitalizeString(humanChoice)}`;
+      break;
+    case "You win!":
+      message = `You win! ${capitalizeString(humanChoice)} beats ${capitalizeString(computerChoice)}.`;
+      break;
+    case "You lose!":
+      message = `You lose! ${capitalizeString(computerChoice)} beats ${capitalizeString(humanChoice)}.`;
+      break;
+  }
+  console.log(message);
+  changeScore(gameResult);
+  console.log(`Score: You - ${humanScore}, Computer - ${computerScore}.`);
+}
+
+function capitalizeString(str) {
+  return str.at(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
 function changeScore(gameResult) {
-  switch(gameResult) {
-    case 'You win!':
+  switch (gameResult) {
+    case "You win!":
       humanScore++;
       break;
-    case 'You lose!':
+    case "You lose!":
       computerScore++;
       break;
   }
