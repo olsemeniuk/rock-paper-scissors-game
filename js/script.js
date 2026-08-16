@@ -1,9 +1,10 @@
 let humanScore = 0;
 let computerScore = 0;
 
+
 function getGameResult(humanChoice, computerChoice) {
   if (humanChoice === computerChoice) {
-    return "tie";
+    return "It's tie!";
   }
 
   if (
@@ -11,10 +12,10 @@ function getGameResult(humanChoice, computerChoice) {
     (humanChoice === "paper" && computerChoice === "rock") ||
     (humanChoice === "scissors" && computerChoice === "paper")
   ) {
-    return "win";
+    return "You win!";
   }
 
-  return "lose";
+  return "You lose!";
 }
 
 function getComputerChoice() {
