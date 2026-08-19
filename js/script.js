@@ -1,6 +1,6 @@
 const NUMBER_OF_ROUNDS = 5;
 
-playGame();
+// playGame();
 
 function playGame() {
   let humanScore = 0;
