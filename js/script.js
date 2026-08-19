@@ -1,21 +1,44 @@
+// Algorithm:
+/*
+1. get human and computer choice on button click;
+2. check who won;
+3. update score;
+4. show round result message;
+5. when one player gets 5 score points - stop the game;
+6. announce the winner.
+*/
+
 const gameButtons = document.querySelector(".game__buttons");
 const NUMBER_OF_ROUNDS = 5;
 
-playGame();
+let humanScore = 0;
+let computerScore = 0;
+
+gameButtons.addEventListener("click", (event) => {
+  const humanChoice = getHumanChoice(event);
+  console.log(humanChoice)
+
+  // const { target } = event;
+  // if (!target.dataset.choice) return;
+  // humanChoice = target.dataset.choice;
+  // computerChoice = getComputerChoice();
+  // [humanScore, computerScore] = playRound(
+  //   humanChoice,
+  //   computerChoice,
+  //   humanScore,
+  //   computerScore,
+  // );
+  // playGame();
+});
+
+function getHumanChoice(event) {
+  const {target} = event;
+  if (!target.dataset.choice) return;
+  return target.dataset.choice;
+}
+
 
 function playGame() {
-  let humanScore = 0;
-  let computerScore = 0;
-  let roundCounter = 0;
-
-  let humanChoice, computerChoice;
-
-  gameButtons.addEventListener("click", (event) => {
-    const { target } = event;
-    if (!target.dataset.choice) return;
-    humanChoice = target.dataset.choice;
-    computerChoice = getComputerChoice();
-  });
 
   // while (roundCounter < NUMBER_OF_ROUNDS) {
   //   const humanChoice = getHumanChoice();
