@@ -1,6 +1,5 @@
 const gameButtons = document.querySelector(".game__buttons");
 const resultPara = document.querySelector(".game__result");
-const NUMBER_OF_ROUNDS = 5;
 
 let humanScore = 0;
 let computerScore = 0;
@@ -12,7 +11,11 @@ gameButtons.addEventListener("click", (event) => {
 
 function playGame(humanChoice) {
   const computerChoice = getComputerChoice();
-  playRound(humanChoice, computerChoice);
+  if (!checkIfGameOver()) {
+    playRound(humanChoice, computerChoice);
+  } else {
+    renderGameResult();
+  }
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -30,9 +33,9 @@ function renderRoundResultMessage(message) {
   resultPara.textContent = message;
 }
 
-// function showScore(humanScore, computerScore) {
-//   console.log(`Score: You - ${humanScore}, Computer - ${computerScore}.`);
-// }
+function checkIfGameOver() {
+  return humanScore === 5 || computerScore === 5;
+}
 
 function getRoundResultMessage(roundResult, humanChoice, computerChoice) {
   let message = "";
@@ -94,16 +97,25 @@ function getHumanChoice(event) {
   return target.dataset.choice;
 }
 
-// function showGameResult(humanScore, computerScore) {
-//   const winner = getWinner(humanScore, computerScore);
-//   const gameResultMessage = `Game over! ${winner === "human" ? "You win!" : winner === "computer" ? "You lose!" : "Tie!"}`;
-//   console.log(gameResultMessage);
-// }
+function renderGameResult() {
+  const message = getGameResultMessage();
+  resultPara.textContent = message;
+}
 
-// function getWinner(humanScore, computerScore) {
-//   return humanScore > computerScore
-//     ? "human"
-//     : humanScore < computerScore
-//       ? "computer"
-//       : "tie";
-// }
+function getGameResultMessage() {
+  const winner = getWinner();
+  const scoreMessage = getScoreMessage();
+  return `Game over! ${winner === "human" ? "You win!" : winner === "computer" ? "You lose!" : "Tie!"}\n${scoreMessage}`;
+}
+
+function getScoreMessage() {
+  return `Score: You - ${humanScore}, Computer - ${computerScore}.`;
+}
+
+function getWinner() {
+  return humanScore > computerScore
+    ? "human"
+    : humanScore < computerScore
+      ? "computer"
+      : "tie";
+}
