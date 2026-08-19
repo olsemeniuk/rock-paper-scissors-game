@@ -16,43 +16,12 @@ let computerScore = 0;
 
 gameButtons.addEventListener("click", (event) => {
   const humanChoice = getHumanChoice(event);
-  console.log(humanChoice)
-
-  // const { target } = event;
-  // if (!target.dataset.choice) return;
-  // humanChoice = target.dataset.choice;
-  // computerChoice = getComputerChoice();
-  // [humanScore, computerScore] = playRound(
-  //   humanChoice,
-  //   computerChoice,
-  //   humanScore,
-  //   computerScore,
-  // );
-  // playGame();
+  playGame(humanChoice);
 });
 
-function getHumanChoice(event) {
-  const {target} = event;
-  if (!target.dataset.choice) return;
-  return target.dataset.choice;
-}
-
-
-function playGame() {
-
-  // while (roundCounter < NUMBER_OF_ROUNDS) {
-  //   const humanChoice = getHumanChoice();
-  //   const computerChoice = getComputerChoice();
-  //   [humanScore, computerScore] = playRound(
-  //     humanChoice,
-  //     computerChoice,
-  //     humanScore,
-  //     computerScore,
-  //   );
-  //   roundCounter++;
-  // }
-
-  // showGameResult(humanScore, computerScore);
+function playGame(humanChoice) {
+  const computerChoice = getComputerChoice();
+  playRound(humanChoice, computerChoice);
 }
 
 function showGameResult(humanScore, computerScore) {
@@ -69,7 +38,7 @@ function getWinner(humanScore, computerScore) {
       : "tie";
 }
 
-function playRound(humanChoice, computerChoice, humanScore, computerScore) {
+function playRound(humanChoice, computerChoice) {
   const roundResult = getRoundResult(humanChoice, computerChoice);
   const roundResultMessage = getRoundResultMessage(
     roundResult,
@@ -77,13 +46,8 @@ function playRound(humanChoice, computerChoice, humanScore, computerScore) {
     computerChoice,
   );
   console.log(roundResultMessage);
-  [humanScore, computerScore] = changeScore(
-    roundResult,
-    humanScore,
-    computerScore,
-  );
-  showScore(humanScore, computerScore);
-  return [humanScore, computerScore];
+  changeScore(roundResult);
+  showScore();
 }
 
 function showScore(humanScore, computerScore) {
@@ -110,7 +74,7 @@ function capitalizeString(str) {
   return str.at(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-function changeScore(roundResult, humanScore, computerScore) {
+function changeScore(roundResult) {
   switch (roundResult) {
     case "win":
       humanScore++;
@@ -119,8 +83,6 @@ function changeScore(roundResult, humanScore, computerScore) {
       computerScore++;
       break;
   }
-
-  return [humanScore, computerScore];
 }
 
 function getRoundResult(humanChoice, computerChoice) {
@@ -144,4 +106,10 @@ function getComputerChoice() {
   const computerChoice =
     randomNum === 1 ? "rock" : randomNum === 2 ? "paper" : "scissors";
   return computerChoice;
+}
+
+function getHumanChoice(event) {
+  const { target } = event;
+  if (!target.dataset.choice) return;
+  return target.dataset.choice;
 }
