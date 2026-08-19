@@ -1,14 +1,5 @@
-// Algorithm:
-/*
-1. get human and computer choice on button click;
-2. check who won;
-3. update score;
-4. show round result message;
-5. when one player gets 5 score points - stop the game;
-6. announce the winner.
-*/
-
 const gameButtons = document.querySelector(".game__buttons");
+const resultPara = document.querySelector(".game__result");
 const NUMBER_OF_ROUNDS = 5;
 
 let humanScore = 0;
@@ -24,20 +15,6 @@ function playGame(humanChoice) {
   playRound(humanChoice, computerChoice);
 }
 
-function showGameResult(humanScore, computerScore) {
-  const winner = getWinner(humanScore, computerScore);
-  const gameResultMessage = `Game over! ${winner === "human" ? "You win!" : winner === "computer" ? "You lose!" : "Tie!"}`;
-  console.log(gameResultMessage);
-}
-
-function getWinner(humanScore, computerScore) {
-  return humanScore > computerScore
-    ? "human"
-    : humanScore < computerScore
-      ? "computer"
-      : "tie";
-}
-
 function playRound(humanChoice, computerChoice) {
   const roundResult = getRoundResult(humanChoice, computerChoice);
   const roundResultMessage = getRoundResultMessage(
@@ -45,14 +22,17 @@ function playRound(humanChoice, computerChoice) {
     humanChoice,
     computerChoice,
   );
-  console.log(roundResultMessage);
+  renderRoundResultMessage(roundResultMessage);
   changeScore(roundResult);
-  showScore();
 }
 
-function showScore(humanScore, computerScore) {
-  console.log(`Score: You - ${humanScore}, Computer - ${computerScore}.`);
+function renderRoundResultMessage(message) {
+  resultPara.textContent = message;
 }
+
+// function showScore(humanScore, computerScore) {
+//   console.log(`Score: You - ${humanScore}, Computer - ${computerScore}.`);
+// }
 
 function getRoundResultMessage(roundResult, humanChoice, computerChoice) {
   let message = "";
@@ -113,3 +93,17 @@ function getHumanChoice(event) {
   if (!target.dataset.choice) return;
   return target.dataset.choice;
 }
+
+// function showGameResult(humanScore, computerScore) {
+//   const winner = getWinner(humanScore, computerScore);
+//   const gameResultMessage = `Game over! ${winner === "human" ? "You win!" : winner === "computer" ? "You lose!" : "Tie!"}`;
+//   console.log(gameResultMessage);
+// }
+
+// function getWinner(humanScore, computerScore) {
+//   return humanScore > computerScore
+//     ? "human"
+//     : humanScore < computerScore
+//       ? "computer"
+//       : "tie";
+// }
