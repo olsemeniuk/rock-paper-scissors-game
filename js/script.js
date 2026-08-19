@@ -1,25 +1,35 @@
+const gameButtons = document.querySelector(".game__buttons");
 const NUMBER_OF_ROUNDS = 5;
 
-// playGame();
+playGame();
 
 function playGame() {
   let humanScore = 0;
   let computerScore = 0;
   let roundCounter = 0;
 
-  while (roundCounter < NUMBER_OF_ROUNDS) {
-    const humanChoice = getHumanChoice();
-    const computerChoice = getComputerChoice();
-    [humanScore, computerScore] = playRound(
-      humanChoice,
-      computerChoice,
-      humanScore,
-      computerScore,
-    );
-    roundCounter++;
-  }
+  let humanChoice, computerChoice;
 
-  showGameResult(humanScore, computerScore);
+  gameButtons.addEventListener("click", (event) => {
+    const { target } = event;
+    if (!target.dataset.choice) return;
+    humanChoice = target.dataset.choice;
+    computerChoice = getComputerChoice();
+  });
+
+  // while (roundCounter < NUMBER_OF_ROUNDS) {
+  //   const humanChoice = getHumanChoice();
+  //   const computerChoice = getComputerChoice();
+  //   [humanScore, computerScore] = playRound(
+  //     humanChoice,
+  //     computerChoice,
+  //     humanScore,
+  //     computerScore,
+  //   );
+  //   roundCounter++;
+  // }
+
+  // showGameResult(humanScore, computerScore);
 }
 
 function showGameResult(humanScore, computerScore) {
@@ -111,8 +121,4 @@ function getComputerChoice() {
   const computerChoice =
     randomNum === 1 ? "rock" : randomNum === 2 ? "paper" : "scissors";
   return computerChoice;
-}
-
-function getHumanChoice() {
-  return prompt("What is your choice?\nRock, paper or scissors?").toLowerCase();
 }
