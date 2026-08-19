@@ -105,7 +105,7 @@ function renderGameResult() {
 function getGameResultMessage() {
   const winner = getWinner();
   const scoreMessage = getScoreMessage();
-  return `Game over! ${winner === "human" ? "You win!" : winner === "computer" ? "You lose!" : "Tie!"}\n${scoreMessage}`;
+  return `Game over! ${winner === "human" ? "You win!" : winner === "computer" ? "You lose!" : "Tie!"} ${scoreMessage}`;
 }
 
 function getScoreMessage() {
